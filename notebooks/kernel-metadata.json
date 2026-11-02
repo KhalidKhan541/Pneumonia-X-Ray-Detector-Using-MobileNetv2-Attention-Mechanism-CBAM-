@@ -1,0 +1,12 @@
+{
+  "id": "KGAT/pneumonia-improved-v4",
+  "title": "Pneumonia Improved V4",
+  "code_file": "pneumonia_improved.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": ["paultimothymooney/chest-xray-pneumonia"]
+}
