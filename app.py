@@ -177,7 +177,9 @@ def image_data_uri(path_string: str) -> str:
     return f"data:{mime};base64,{payload}"
 
 
-def pil_data_uri(image: Image.Image, fmt: str = "PNG") -> str:
+def pil_data_uri(image, fmt: str = "PNG") -> str:
+    if isinstance(image, np.ndarray):
+        image = Image.fromarray(image)
     buffer = io.BytesIO()
     image.save(buffer, format=fmt)
     payload = base64.b64encode(buffer.getvalue()).decode("ascii")
