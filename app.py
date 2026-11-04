@@ -177,6 +177,13 @@ def image_data_uri(path_string: str) -> str:
     return f"data:{mime};base64,{payload}"
 
 
+def pil_data_uri(image: Image.Image, fmt: str = "PNG") -> str:
+    buffer = io.BytesIO()
+    image.save(buffer, format=fmt)
+    payload = base64.b64encode(buffer.getvalue()).decode("ascii")
+    return f"data:image/{fmt.lower()};base64,{payload}"
+
+
 def open_image(file_bytes: bytes) -> Image.Image:
     image = Image.open(io.BytesIO(file_bytes))
     image = ImageOps.exif_transpose(image)
@@ -533,6 +540,13 @@ button[data-testid="stBaseButton-tertiary"] {
 [data-testid="stImage"] img {
     border: 1px solid var(--line);
     display: block;
+}
+
+.fig-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--line);
 }
 
 [data-testid="stVerticalBlockBorderWrapper"] {
@@ -2551,19 +2565,31 @@ def main() -> None:
                         '<div class="fig-label"><span>01 / Input</span><span>224 × 224</span></div>',
                         unsafe_allow_html=True,
                     )
-                    st.image(base_rgb, width="stretch")
+                    st.markdown(
+                        f'<img class="fig-image" src="{pil_data_uri(base_rgb)}" '
+                        'alt="Input radiograph">',
+                        unsafe_allow_html=True,
+                    )
                 with fig_b:
                     st.markdown(
                         '<div class="fig-label"><span>02 / Attention</span><span>white = focus</span></div>',
                         unsafe_allow_html=True,
                     )
-                    st.image(heat_rgb, width="stretch")
+                    st.markdown(
+                        f'<img class="fig-image" src="{pil_data_uri(heat_rgb)}" '
+                        'alt="Grad-CAM attention map">',
+                        unsafe_allow_html=True,
+                    )
                 with fig_c:
                     st.markdown(
                         '<div class="fig-label"><span>03 / Overlay</span><span>screen blend</span></div>',
                         unsafe_allow_html=True,
                     )
-                    st.image(overlay_rgb, width="stretch")
+                    st.markdown(
+                        f'<img class="fig-image" src="{pil_data_uri(overlay_rgb)}" '
+                        'alt="Grad-CAM overlay">',
+                        unsafe_allow_html=True,
+                    )
                 st.markdown(
                     '<p class="fig-note">Grad-CAM is computed from the CBAM feature map. '
                     "Bright regions contributed more to the selected class score. It is a "
