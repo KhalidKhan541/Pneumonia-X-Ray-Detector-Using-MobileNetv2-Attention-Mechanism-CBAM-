@@ -1,0 +1,16 @@
+{
+  "model": "MobileNetV2 + CBAM + CLAHE + Focal Loss",
+  "accuracy": 0.8814102564102564,
+  "roc_auc": 0.9430089853166777,
+  "precision": 0.8708920187793427,
+  "recall": 0.9512820512820512,
+  "f1_score": 0.9093137254901961,
+  "techniques": [
+    "Focal Loss (gamma=2.0, alpha=0.25)",
+    "CBAM Attention",
+    "Stronger augmentation",
+    "Two-phase training"
+  ],
+  "baseline_accuracy": 0.8798,
+  "improvement": 0.001610256410256361
+}
